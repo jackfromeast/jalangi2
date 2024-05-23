@@ -38,7 +38,7 @@ if (typeof J$ === 'undefined') {
     Constants.HAS_OWN_PROPERTY_CALL = Object.prototype.hasOwnProperty.call;
 
 
-    var PREFIX1 = Constants.JALANGI_VAR = "J$";
+    var PREFIX1 = Constants.JALANGI_VAR = "J$$";
     Constants.SPECIAL_PROP = "*" + PREFIX1 + "*";
     Constants.SPECIAL_PROP2 = "*" + PREFIX1 + "I*";
     Constants.SPECIAL_PROP3 = "*" + PREFIX1 + "C*";
