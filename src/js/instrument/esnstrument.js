@@ -33,6 +33,26 @@ if (typeof J$ === 'undefined') {
         return;
     }
 
+    function es6Transform(code) {
+        const babel = require('@babel/core');
+        if (typeof(babel) !== 'undefined' && !process.env['NO_ES7']) {
+            var res = babel.transform(code, {
+            retainLines: true,
+                sourceType: 'script',
+                presets: ['/home/jackfromeast/Desktop/TheHulk/jalangi2/node_modules/@babel/preset-env']
+            }).code; 
+        
+            if (res && res.indexOf('use strict') != -1) {
+            res = res.replace(/.use strict.;\n?/, '');
+            }
+        
+            return res;
+        } else {
+            console.log('There is no babel loaded');
+            return code;
+        }
+    }
+
     var global = this;
     var JSON = {parse: global.JSON.parse, stringify: global.JSON.stringify};
 
@@ -1860,7 +1880,7 @@ if (typeof J$ === 'undefined') {
 //         StatCollector.resumeTimer("parse");
 //        console.time("parse")
 //        var newAst = esprima.parse(code, {loc:true, range:true});
-        var newAst = acorn.parse(code, {locations: true, ecmaVersion: 6 });
+        var newAst = acorn.parse(es6Transform(code), {locations: true, ecmaVersion: 6 });
 //        console.timeEnd("parse")
 //        StatCollector.suspendTimer("parse");
 //        StatCollector.resumeTimer("transform");
