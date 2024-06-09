@@ -47,7 +47,7 @@ function getInstOutputFile(filePath) {
  * @param instHandler
  */
 function setupConfig(instHandler) {
-    var conf = J$.Config;
+    var conf = J$$.Config;
     conf.INSTR_READ = instHandler.instrRead;
     conf.INSTR_WRITE = instHandler.instrWrite;
     conf.INSTR_GETFIELD = instHandler.instrGetfield;
@@ -63,7 +63,7 @@ function setupConfig(instHandler) {
  * clear any configured instrumentation control functions from the global Config object
  */
 function clearConfig() {
-    var conf = J$.Config;
+    var conf = J$$.Config;
     conf.INSTR_READ = null;
     conf.INSTR_WRITE = null;
     conf.INSTR_GETFIELD = null;
@@ -97,7 +97,7 @@ function clearConfig() {
  * instrPutfield, instrBinary, instrPropBinaryAssignment, instrUnary, instrLiteral, and instrConditional,
  * corresponding to the similarly-named properties documented in Config.js.
  * - astHandler: a function that takes the instrumented AST as a parameter and returns a JSON
- * object.  The instrumented code will store the result object in J$.ast_info, so it will be
+ * object.  The instrumented code will store the result object in J$$.ast_info, so it will be
  * available to analyses at the scriptEnter() callback.
  *
  * @param code
@@ -117,12 +117,12 @@ function instrumentString(code, options) {
     if (options.instHandler) {
         setupConfig(options.instHandler);
     }
-    var result = J$.instrumentCode(instCodeOptions);
+    var result = J$$.instrumentCode(instCodeOptions);
     clearConfig();
     if (options.astHandler) {
         var info = options.astHandler(result.instAST);
         if (info) {
-            result.code = J$.Constants.JALANGI_VAR + ".ast_info = " + JSON.stringify(info) + ";\n" + result.code;
+            result.code = J$$.Constants.JALANGI_VAR + ".ast_info = " + JSON.stringify(info) + ";\n" + result.code;
         }
     }
     return result;

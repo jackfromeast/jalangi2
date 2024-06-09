@@ -18,8 +18,8 @@
 
 // add relative path of this file in headers.js
 
-if (typeof J$ === 'undefined') {
-    J$ = {};
+if (typeofJ$$ === 'undefined') {
+    J$$ = {};
 }
 
 (function (sandbox) {
@@ -29,5 +29,5 @@ if (typeof J$ === 'undefined') {
     sandbox.NameOfModule = {};
     // now add stuff to NameOfModule
 
-}(J$));
+}(J$$));
 

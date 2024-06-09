@@ -42,7 +42,7 @@
          * <tt>result</tt> property of the object.
          */
         this.conditional = function (iid, result) {
-            var id = J$.getGlobalIID(iid);
+            var id = J$$.getGlobalIID(iid);
             var branchInfo = branches[id];
             if (!branchInfo) {
                 branchInfo = branches[id] = {trueCount: 0, falseCount: 0};
@@ -65,7 +65,7 @@
             for (var id in branches) {
                 if (branches.hasOwnProperty(id)) {
                     var branchInfo = branches[id];
-                    console.log("At location " + J$.iidToLocation(id) +
+                    console.log("At location " + J$$.iidToLocation(id) +
                     " 'true' branch was taken " + branchInfo.trueCount +
                     " time(s) and 'false' branch was taken " + branchInfo.falseCount + " time(s).");
                 }

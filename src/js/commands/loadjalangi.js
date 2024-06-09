@@ -80,8 +80,8 @@ if (typeof J$ === 'undefined') {
             addHelp: true,
             description: "Command-line utility to perform instrumentation"
         });
-        parser.addArgument(['--inlineIID'], {help: "Inline IID to (beginLineNo, beginColNo, endLineNo, endColNo) in J$.iids in the instrumented file", action: 'storeTrue'});
-        parser.addArgument(['--inlineSource'], {help: "Inline original source as string in J$.iids.code in the instrumented file", action: 'storeTrue'});
+        parser.addArgument(['--inlineIID'], {help: "Inline IID to (beginLineNo, beginColNo, endLineNo, endColNo) in J$$.iids in the instrumented file", action: 'storeTrue'});
+        parser.addArgument(['--inlineSource'], {help: "Inline original source as string in J$$.iids.code in the instrumented file", action: 'storeTrue'});
         parser.addArgument(['--initParam'], { help: "initialization parameter for analysis, specified as key:value", action:'append'});
         parser.addArgument(['--noResultsGUI'], { help: "disable insertion of results GUI code in HTML", action:'storeTrue'});
         parser.addArgument(['--astHandlerModule'], {help: "Path to a node module that exports a function to be used for additional AST handling after instrumentation"});
@@ -168,5 +168,5 @@ if (typeof J$ === 'undefined') {
 }(J$));
 
 
-// depends on J$.instrumentCode
+// depends on J$$.instrumentCode
 

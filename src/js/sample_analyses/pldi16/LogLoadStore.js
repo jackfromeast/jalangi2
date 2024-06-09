@@ -45,21 +45,21 @@
         this.getFieldPre = function (iid, base, offset, isComputed, isOpAssign, isMethodCall) {
             var actualObjectId = sandbox.smemory.getIDFromShadowObjectOrFrame(sandbox.smemory.getShadowObject(base, offset, true).owner);
             var ret = "Load of object(id=" + actualObjectId + ")." + offset;
-            ret += " at " + J$.iidToLocation(J$.sid, iid);
+            ret += " at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
         };
 
         this.putFieldPre = function (iid, base, offset, val, isComputed, isOpAssign) {
             var actualObjectId = sandbox.smemory.getIDFromShadowObjectOrFrame(sandbox.smemory.getShadowObject(base, offset, false).owner);
             var ret = "Store of object(id=" + actualObjectId + ")." + offset;
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
         };
 
         this.read = function (iid, name, val, isGlobal, isScriptLocal) {
             var frameId = sandbox.smemory.getIDFromShadowObjectOrFrame(sandbox.smemory.getShadowFrame(name));
             var ret = "Load of frame(id=" + frameId + ")." + name;
-            ret += " at " + J$.iidToLocation(J$.sid, iid);
+            ret += " at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: val};
         };
@@ -67,7 +67,7 @@
         this.write = function (iid, name, val, lhs, isGlobal, isScriptLocal) {
             var frameId = sandbox.smemory.getIDFromShadowObjectOrFrame(sandbox.smemory.getShadowFrame(name));
             var ret = "Store of frame(id=" + frameId + ")." + name;
-            ret += " at " + J$.iidToLocation(J$.sid, iid);
+            ret += " at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: val};
         };

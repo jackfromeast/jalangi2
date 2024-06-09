@@ -18,8 +18,8 @@
 
 /*jslint node: true */
 
-if (typeof J$ === 'undefined') {
-    J$ = {};
+if (typeof J$$ === 'undefined') {
+    J$$ = {};
 }
 
 
@@ -62,7 +62,7 @@ if (typeof J$ === 'undefined') {
      * In addition to the command-line options, the options argument can also
      * include in property astHandler a function that takes the instrumented AST
      * as a parameter and returns a JSON object.  The instrumented code will store
-     * the result object in J$.ast_info, so it will be available to analyses at the
+     * the result object in J$$.ast_info, so it will be available to analyses at the
      * scriptEnter() callback.
      */
     function instrument(options, cb) {
@@ -463,11 +463,11 @@ if (typeof J$ === 'undefined') {
         parser.addArgument(['--only_include'], {help: "list of path prefixes specifying which sub-directories should be instrumented, separated by path.delimiter"});
         parser.addArgument(['-i', '--instrumentInline'], {help: "instrument inline scripts", action: 'storeTrue'});
         parser.addArgument(['--inlineIID'], {
-            help: "Inline IID to (beginLineNo, beginColNo, endLineNo, endColNo) in J$.iids in the instrumented file",
+            help: "Inline IID to (beginLineNo, beginColNo, endLineNo, endColNo) in J$$.iids in the instrumented file",
             action: 'storeTrue'
         });
         parser.addArgument(['--inlineSource'], {
-            help: "Inline original source as string in J$.iids.code in the instrumented file",
+            help: "Inline original source as string in J$$.iids.code in the instrumented file",
             action: 'storeTrue'
         });
         parser.addArgument(['--inlineJalangi'], {
@@ -515,5 +515,5 @@ if (typeof J$ === 'undefined') {
         exports.EXTRA_SCRIPTS_DIR = EXTRA_SCRIPTS_DIR;
         exports.JALANGI_RUNTIME_DIR = JALANGI_RUNTIME_DIR;
     }
-}(J$));
+}(J$$));
 

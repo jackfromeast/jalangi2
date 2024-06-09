@@ -13,7 +13,7 @@
     function MyAnalysis() {
 
         this.conditional = function (iid, result) {
-            var id = J$.getGlobalIID(iid);
+            var id = J$$.getGlobalIID(iid);
             if (result)
                 trueBranches[id] = (trueBranches[id]|0) + 1;
             else
@@ -29,7 +29,7 @@
     function print(map, str) {
         for (var id in map)
             if (map.hasOwnProperty(id)) {
-                sandbox.log(str + " branch taken at " + J$.iidToLocation(id) + " " + map[id] + " times");
+                sandbox.log(str + " branch taken at " + J$$.iidToLocation(id) + " " + map[id] + " times");
             }
     }
 

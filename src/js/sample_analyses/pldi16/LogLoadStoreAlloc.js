@@ -41,7 +41,7 @@
         this.literal = function (iid, val, hasGetterSetter) {
             if (typeof val === "object" && val !== null) {
                 var sobj = sandbox.smemory.getShadowObjectOfObject(val);
-                sobj.allocSite = J$.iidToLocation(J$.sid, iid);
+                sobj.allocSite = J$$.iidToLocation(J$$.sid, iid);
             }
         };
 
@@ -49,21 +49,21 @@
             indentationCount--;
             if (isConstructor && typeof val === "object" && val !== null) {
                 var sobj = sandbox.smemory.getShadowObjectOfObject(val);
-                sobj.allocSite = J$.iidToLocation(J$.sid, iid);
+                sobj.allocSite = J$$.iidToLocation(J$$.sid, iid);
             }
         };
 
         this.getFieldPre = function (iid, base, offset, isComputed, isOpAssign, isMethodCall) {
             var sobj = sandbox.smemory.getShadowObject(base, offset, true).owner;
             var ret = "Load '"+offset+ "' of object allocated at" + sobj.allocSite;
-            ret += " at " + J$.iidToLocation(J$.sid, iid);
+            ret += " at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
         };
 
         this.putFieldPre = function (iid, base, offset, val, isComputed, isOpAssign) {
             var sobj = sandbox.smemory.getShadowObject(base, offset, false).owner;
             var ret = "Store '"+offset+ "' of object allocated at" + sobj.allocSite;
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
         };
 

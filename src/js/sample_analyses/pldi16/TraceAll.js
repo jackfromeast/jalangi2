@@ -77,8 +77,8 @@
                 ret += ", args["+i+"]="+getValue(args[i]);
             }
             ret += ", isConstructor="+isConstructor+", isMethod="+isMethod+", functionIid="+functionIid+", functionSid="+functionSid;
-            ret += ") of function created at "+J$.iidToLocation(functionSid, functionIid);
-            ret += " at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") of function created at "+J$$.iidToLocation(functionSid, functionIid);
+            ret += " at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             indentationCount++;
             return {f: f, base: base, args: args, skip: false};
@@ -91,29 +91,29 @@
                 ret += ", args["+i+"]="+getValue(args[i]);
             }
             ret += ", isConstructor="+isConstructor+", isMethod="+isMethod+", functionIid="+functionIid+", functionSid="+functionSid;
-            ret += ") of function created at "+J$.iidToLocation(functionSid, functionIid);
-            ret += " at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") of function created at "+J$$.iidToLocation(functionSid, functionIid);
+            ret += " at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: result};
         };
 
         this.literal = function (iid, val, hasGetterSetter) {
             var ret = "literal(iid="+iid+", val="+getValue(val)+", hasGetterSetter="+hasGetterSetter;
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: val};
         };
 
         this.forinObject = function (iid, val) {
             var ret = "forinObject(iid="+iid+", val="+getValue(val);
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: val};
         };
 
         this.declare = function (iid, name, val, isArgument, argumentIndex, isCatchParam) {
             var ret = "declare(iid="+iid+", name="+name+", val="+getValue(val)+", isArgument="+isArgument+", argumentIndex="+argumentIndex+", isCatchParam="+isCatchParam;
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: val};
         };
@@ -122,7 +122,7 @@
             var actualObjectId = sandbox.smemory.getIDFromShadowObjectOrFrame(sandbox.smemory.getShadowObject(base, offset, true).owner);
             var ret = "getFieldPre(iid="+iid+", base="+getValue(base)+", offset="+getValue(offset+"")+
                 ", isComputed="+isComputed+", isOpAssign="+isOpAssign+", isMethodCall="+isMethodCall+") with actualBase=object(id="+actualObjectId+")";
-            ret += " at " + J$.iidToLocation(J$.sid, iid);
+            ret += " at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {base: base, offset: offset, skip: false};
         };
@@ -131,56 +131,56 @@
             var actualObjectId = sandbox.smemory.getIDFromShadowObjectOrFrame(sandbox.smemory.getShadowObject(base, offset, true).owner);
             var ret = "getField(iid="+iid+", base="+getValue(base)+", offset="+getValue(offset+"")+", val="+getValue(val)+
                 ", isComputed="+isComputed+", isOpAssign="+isOpAssign+", isMethodCall="+isMethodCall+") with actualBase=object(id="+actualObjectId+")";
-            ret += " at " + J$.iidToLocation(J$.sid, iid);
+            ret += " at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: val};
         };
 
         this.putFieldPre = function (iid, base, offset, val, isComputed, isOpAssign) {
             var ret = "putFieldPre(iid="+iid+", base="+getValue(base)+", offset="+getValue(offset+"")+", val="+getValue(val)+", isComputed="+isComputed+", isOpAssign="+isOpAssign;
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {base: base, offset: offset, val: val, skip: false};
         };
 
         this.putField = function (iid, base, offset, val, isComputed, isOpAssign) {
             var ret = "putField(iid="+iid+", base="+getValue(base)+", offset="+getValue(offset+"")+", val="+getValue(val)+", isComputed="+isComputed+", isOpAssign="+isOpAssign;
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: val};
         };
 
         this.read = function (iid, name, val, isGlobal, isScriptLocal) {
             var ret = "read(iid="+iid+", name="+name+", val="+getValue(val)+", isGlobal="+isGlobal+", isScriptLocal="+isScriptLocal+") with frameId="+getFrameID(name);
-            ret += " at " + J$.iidToLocation(J$.sid, iid);
+            ret += " at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: val};
         };
 
         this.write = function (iid, name, val, lhs, isGlobal, isScriptLocal) {
             var ret = "write(iid="+iid+", name="+name+", val="+getValue(val)+", lhs="+getValue(lhs)+", isGlobal="+isGlobal+", isScriptLocal="+isScriptLocal+") with frameId="+getFrameID(name);
-            ret += " at " + J$.iidToLocation(J$.sid, iid);
+            ret += " at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: val};
         };
 
         this._return = function (iid, val) {
             var ret = "_return(iid="+iid+", val="+getValue(val);
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: val};
         };
 
         this._throw = function (iid, val) {
             var ret = "_throw(iid="+iid+", val="+getValue(val);
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: val};
         };
 
         this._with = function (iid, val) {
             var ret = "_with(iid="+iid+", val="+getValue(val);
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: val};
         };
@@ -191,28 +191,28 @@
                 ret += ", args["+i+"]="+getValue(args[i])+", ";
             }
             ret += ") with frameId="+getFrameID("this");
-            ret += " at " + J$.iidToLocation(J$.sid, iid);
+            ret += " at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
         };
 
         this.functionExit = function (iid, returnVal, wrappedExceptionVal) {
             var ret = "functionExit(iid="+iid+", returnVal="+getValue(returnVal)+", wrappedExceptionVal="+(wrappedExceptionVal?("{exception: "+getValue(wrappedExceptionVal.exception)+"}"):"none");
             ret += ", frameId="+getFrameID("this");
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {returnVal: returnVal, wrappedExceptionVal: wrappedExceptionVal, isBacktrack: false};
         };
 
         this.scriptEnter = function (iid, instrumentedFileName, originalFileName) {
             var ret = "scriptEnter(iid="+iid+", instrumentedFileName="+instrumentedFileName+", originalFileName="+originalFileName;
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             indentationCount++;
         };
 
         this.scriptExit = function (iid, wrappedExceptionVal) {
             var ret = "scriptExit(iid="+iid+", wrappedExceptionVal="+(wrappedExceptionVal?("{exception:"+getValue(wrappedExceptionVal.exception)+"}"):"none");
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             indentationCount--;
             return {wrappedExceptionVal: wrappedExceptionVal, isBacktrack: false};
@@ -221,7 +221,7 @@
         this.binaryPre = function (iid, op, left, right, isOpAssign, isSwitchCaseComparison, isComputed) {
             var ret = "binaryPre(iid="+iid+", op=\""+op+"\", left="+getValue(left)+", right="+getValue(right)+", isOpAssign="+
                 isOpAssign+", isSwitchCaseComparison="+isSwitchCaseComparison+", isComputed="+isComputed;
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {op: op, left: left, right: right, skip: false};
         };
@@ -229,49 +229,49 @@
         this.binary = function (iid, op, left, right, result, isOpAssign, isSwitchCaseComparison, isComputed) {
             var ret = "binary(iid="+iid+", op=\""+op+"\", left="+getValue(left)+", right="+getValue(right)+", result="+getValue(result)+
                 ", isOpAssign="+isOpAssign+", isSwitchCaseComparison="+isSwitchCaseComparison+", isComputed="+isComputed;
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: result};
         };
 
         this.unaryPre = function (iid, op, left) {
             var ret = "unaryPre(iid="+iid+", op=\""+op+"\", left="+getValue(left);
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {op: op, left: left, skip: false};
         };
 
         this.unary = function (iid, op, left, result) {
             var ret = "unary(iid="+iid+", op=\""+op+"\", left="+getValue(left)+", result="+getValue(result);
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: result};
         };
 
         this.conditional = function (iid, result) {
             var ret = "conditional(iid="+iid+", result="+getValue(result);
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: result};
         };
 
         this.instrumentCodePre = function (iid, code, isDirect) {
             var ret = "instrumentCodePre(iid="+iid+", code="+getValue(code)+", isDirect="+isDirect;
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {code: code, skip: false};
         };
 
         this.instrumentCode = function (iid, newCode, newAst, isDirect) {
             var ret = "instrumentCode(iid="+iid+", newCode="+getValue(newCode)+", newAst="+getValue(newAst)+", isDirect="+isDirect;
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
             return {result: newCode};
         };
 
         this.endExpression = function (iid) {
             var ret = "endExpression(iid="+iid;
-            ret += ") at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") at " + J$$.iidToLocation(J$$.sid, iid);
             log(ret);
         };
 
@@ -287,8 +287,8 @@
 
         this.runInstrumentedFunctionBody = function (iid, f, functionIid, functionSid) {
             var ret = "runInstrumentedFunctionBody(iid="+iid+", f="+getValue(f)+", functionIid="+functionIid+", functionSid="+functionSid;
-            ret += ") of function created at "+J$.iidToLocation(functionSid, functionIid);
-            ret += " at " + J$.iidToLocation(J$.sid, iid);
+            ret += ") of function created at "+J$$.iidToLocation(functionSid, functionIid);
+            ret += " at " + J$$.iidToLocation(J$$.sid, iid);
 
             return false;
         };

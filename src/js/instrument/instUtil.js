@@ -128,7 +128,7 @@ function genInitParamsCode(initParams) {
             initParamsObj[split[0]] = split[1];
         });
     }
-    return "<script>J$.initParams = " + JSON.stringify(initParamsObj) + ";</script>";
+    return "<script>J$$.initParams = " + JSON.stringify(initParamsObj) + ";</script>";
 }
 
 function applyASTHandler(instResult, astHandler, sandbox) {

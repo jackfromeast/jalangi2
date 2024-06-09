@@ -66,7 +66,7 @@
         this.getField = function (iid, base, offset, val, isComputed, isOpAssign, isMethodCall) {
             var shadowObj = sandbox.smemory.getShadowObject(base, offset, true);
             var args = {base: sandbox.smemory.getIDFromShadowObjectOrFrame(shadowObj.owner), offset: offset, val: getValue(val), isComputed: isComputed, isOpAssign: isOpAssign, isMethodCall: isMethodCall};
-            console.log("getField("+JSON.stringify(args)+") at " + J$.iidToLocation(J$.sid, iid));
+            console.log("getField("+JSON.stringify(args)+") at " + J$$.iidToLocation(J$$.sid, iid));
             return {result: val};
         };
 
@@ -77,7 +77,7 @@
         this.putField = function (iid, base, offset, val, isComputed, isOpAssign) {
             var shadowObj = sandbox.smemory.getShadowObject(base, offset, true);
             var args = {base: sandbox.smemory.getIDFromShadowObjectOrFrame(shadowObj.owner), offset: offset, val: getValue(val), isComputed: isComputed, isOpAssign: isOpAssign};
-            console.log("putField("+JSON.stringify(args)+") at " + J$.iidToLocation(J$.sid, iid));
+            console.log("putField("+JSON.stringify(args)+") at " + J$$.iidToLocation(J$$.sid, iid));
             return {result: val};
         };
 

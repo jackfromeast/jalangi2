@@ -16,7 +16,7 @@
      * <p>
      * To use smemory, one must include --analysis $JALANGI_HOME/src/js/sample_analyses/ChainedAnalyses.js
      * --analysis $JALANGI_HOME/src/js/runtime/SMemory.js as the first two --analysis options during an analysis.
-     * smemory can be accessed via J$.smemory or sandbox.smemory.  The smemory object defines several methods.
+     * smemory can be accessed via J$$.smemory or sandbox.smemory.  The smemory object defines several methods.
      * Those methods can be used to obtain the shadow memory for an object property or a program variable,
      * respectively.  getShadowObject should be used in getFieldPre, putFieldPre, and literal callbacks.  (In a literal
      * callback with an object literal, one must go over all the own properties of the literal object to suitably update
@@ -127,7 +127,7 @@
 
         /**
          * This method returns the shadow object associated with the activation frame that contains the variable "name".  To get the current activation frame,
-         * call J$.smemory.getFrame("this");
+         * call J$$.smemory.getFrame("this");
          *
          * @param name - Name of the variable whose owner activation frame's shadow object we want to retrieve
          * @returns {Object} -  The shadow object of the activation frame owning the variable.

@@ -20,8 +20,8 @@
 /*global astUtil acorn esotope J$ */
 
 //var StatCollector = require('../utils/StatCollector');
-if (typeof J$ === 'undefined') {
-    J$ = {};
+if (typeof J$$ === 'undefined') {
+    J$$ = {};
 }
 
 
@@ -117,8 +117,8 @@ if (typeof J$ === 'undefined') {
             addHelp: true,
             description: "Command-line utility to perform instrumentation"
         });
-        parser.addArgument(['--inlineIID'], {help: "Inline IID to (beginLineNo, beginColNo, endLineNo, endColNo) in J$.iids in the instrumented file", action: 'storeTrue'});
-        parser.addArgument(['--inlineSource'], {help: "Inline original source as string in J$.iids.code in the instrumented file", action: 'storeTrue'});
+        parser.addArgument(['--inlineIID'], {help: "Inline IID to (beginLineNo, beginColNo, endLineNo, endColNo) in J$$.iids in the instrumented file", action: 'storeTrue'});
+        parser.addArgument(['--inlineSource'], {help: "Inline original source as string in J$$.iids.code in the instrumented file", action: 'storeTrue'});
         parser.addArgument(['--initParam'], { help: "initialization parameter for analysis, specified as key:value", action:'append'});
         parser.addArgument(['--noResultsGUI'], { help: "disable insertion of results GUI code in HTML", action:'storeTrue'});
         parser.addArgument(['--cdn'], {help: "CDN URL from which to serve analysis (rather than inlining)"});
@@ -216,12 +216,16 @@ if (typeof J$ === 'undefined') {
                         }
 
                         switch (node.tagName) {
+
+                            /** 
+                             * TODO: Move this part to the browser side during the onload event of every new javascript context
+                             */
                             case 'head':
-                                var fragment = parse5.parseFragment(
-                                    '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' +
-                                    instUtil.getInlinedScripts(analyses, initParams, extraAppScripts, EXTRA_SCRIPTS_DIR, jalangiRoot, cdn)
-                                );
-                                Array.prototype.unshift.apply(node.childNodes, fragment.childNodes);
+                                // var fragment = parse5.parseFragment(
+                                //     '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">' +
+                                //     instUtil.getInlinedScripts(analyses, initParams, extraAppScripts, EXTRA_SCRIPTS_DIR, jalangiRoot, cdn)
+                                // );
+                                // Array.prototype.unshift.apply(node.childNodes, fragment.childNodes);
                                 break;
 
                             case 'body':
@@ -258,8 +262,8 @@ if (typeof J$ === 'undefined') {
     if (typeof window === 'undefined' && (typeof require !== "undefined") && require.main === module) {
         instrumentFile();
     }
-}(J$));
+}(J$$));
 
 
-// depends on J$.instrumentCode
+// depends on J$$.instrumentCode
 

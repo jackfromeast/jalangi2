@@ -78,7 +78,7 @@ fs.writeFileSync('allcoverage.json', JSON.stringify({statementMap: stmtMap, test
 //   var emitted;
 //
 //   if (this.type==='test') {
-//       J$.analysis.beginExecution(this.fn.toString());
+//       J$$.analysis.beginExecution(this.fn.toString());
 //}
 
 

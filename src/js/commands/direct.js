@@ -50,7 +50,7 @@ function runAnalysis(initParam) {
         require("./../../../"+header);
     });
 
-    J$.initParams = initParam || {};
+    J$$.initParams = initParam || {};
     if (args.analysis) {
         args.analysis.forEach(function (src) {
             require(path.resolve(src));
@@ -65,13 +65,13 @@ function runAnalysis(initParam) {
         process.argv = newArgs;
         // this assumes that the endExecution() callback of the analysis
         // does not make any asynchronous calls
-        process.on('exit', function () { J$.endExecution(); });
+        process.on('exit', function () { J$$.endExecution(); });
         var mod = require('module').Module;
         mod.runMain(script, null, true);
     }
 
-    if (J$.analysis && J$.analysis.onReady) {
-        J$.analysis.onReady(startProgram);
+    if (J$$.analysis && J$$.analysis.onReady) {
+        J$$.analysis.onReady(startProgram);
     } else {
         startProgram();
     }

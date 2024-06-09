@@ -1,10 +1,10 @@
 if (typeof QUnit !== "undefined") {
     QUnit.testStart(function( details ) {
-        J$.analysis.beginExecution();
+        J$$.analysis.beginExecution();
     });
 
     QUnit.testDone(function( details ) {
-        J$.analysis.endExecution();
+        J$$.analysis.endExecution();
     });
 }
 

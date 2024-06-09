@@ -1,7 +1,7 @@
 beforeEach(function() {
-    J$.analysis.beginExecution();
+    J$$.analysis.beginExecution();
 });
 
 afterEach(function() {
-    J$.analysis.endExecution();
+    J$$.analysis.endExecution();
 });

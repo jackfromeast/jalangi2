@@ -23,10 +23,9 @@
 /*global astUtil acorn esotope J$ */
 
 //var StatCollector = require('../utils/StatCollector');
-if (typeof J$ === 'undefined') {
-    J$ = {};
+if (typeof J$$ === 'undefined') {
+    J$$ = {};
 }
-
 
 (function (sandbox) {
     if (typeof sandbox.instrumentCode !== 'undefined') {
@@ -1102,8 +1101,8 @@ if (typeof J$ === 'undefined') {
 //    }
 
     /**
-     * instruments entry of a script.  Adds the script entry (J$.Se) callback,
-     * and the J$.N init callbacks for locals.
+     * instruments entry of a script.  Adds the script entry (J$$.Se) callback,
+     * and the J$$.N init callbacks for locals.
      *
      */
     function instrumentScriptEntryExit(node, body0) {
@@ -1269,7 +1268,7 @@ if (typeof J$ === 'undefined') {
         var ignoreCase = this.ignoreCase;
         var multiline = this.multiline;
         var obj = {
-            type: 'J$.AST.REGEXP',
+            type: 'J$$.AST.REGEXP',
             value: str,
             glb: glb,
             ignoreCase: ignoreCase,
@@ -1290,7 +1289,7 @@ if (typeof J$ === 'undefined') {
 
     function JSONParseHandler(key, value) {
         var ret = value, flags = '';
-        if (typeof value === 'object' && value && value.type === 'J$.AST.REGEXP') {
+        if (typeof value === 'object' && value && value.type === 'J$$.AST.REGEXP') {
             if (value.glb)
                 flags += 'g';
             if (value.ignoreCase)
@@ -1821,11 +1820,11 @@ if (typeof J$ === 'undefined') {
         var key, child, startIndex = 0;
         if (ast.body) {
             var newBody = [];
-            if (ast.body.length > 0) { // do not hoister function declaration before J$.Fe or J$.Se
+            if (ast.body.length > 0) { // do not hoister function declaration before J$$.Fe or J$$.Se
                 if (ast.body[0].type === 'ExpressionStatement') {
                     if (ast.body[0].expression.type === 'CallExpression') {
                         if (ast.body[0].expression.callee.object &&
-                            ast.body[0].expression.callee.object.name === 'J$'
+                            ast.body[0].expression.callee.object.name === 'J$$'
                             && ast.body[0].expression.callee.property
                             &&
                             (ast.body[0].expression.callee.property.name === 'Se' || ast.body[0].
@@ -2011,13 +2010,13 @@ if (typeof J$ === 'undefined') {
     sandbox.instrumentCode = instrumentCode;
     sandbox.instrumentEvalCode = instrumentEvalCode;
 
-}(J$));
+}(J$$));
 
 
-// exports J$.instrumentCode
-// exports J$.instrumentEvalCode
+// exports J$$.instrumentCode
+// exports J$$.instrumentEvalCode
 // depends on acorn
 // depends on esotope
-// depends on J$.Constants
-// depends on J$.Config
-// depends on J$.astUtil
+// depends on J$$.Constants
+// depends on J$$.Config
+// depends on J$$.astUtil

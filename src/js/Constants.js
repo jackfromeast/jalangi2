@@ -15,8 +15,8 @@
  */
 // do not remove the following comment
 // JALANGI DO NOT INSTRUMENT
-if (typeof J$ === 'undefined') {
-    J$ = {};
+if (typeof J$$ === 'undefined') {
+    J$$ = {};
 }
 
 (function (sandbox) {
@@ -98,5 +98,5 @@ if (typeof J$ === 'undefined') {
         }
     };
 
-})(J$);
+})(J$$);
 

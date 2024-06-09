@@ -23,8 +23,8 @@
 // do not remove the following comment
 // JALANGI DO NOT INSTRUMENT
 
-if (typeof J$ === 'undefined') {
-    J$ = {};
+if (typeof J$$ === 'undefined') {
+    J$$ = {};
 }
 
 (function (sandbox) {
@@ -64,7 +64,7 @@ if (typeof J$ === 'undefined') {
 
     /**
      * invoked by transformAst() to see if a sub-ast should be ignored.  For now,
-     * only ignoring calls to J$.I()
+     * only ignoring calls to J$$.I()
      */
     function ignoreSubAst(node) {
         return node.type === 'CallExpression' && node.callee.type === 'MemberExpression' &&
@@ -187,7 +187,7 @@ if (typeof J$ === 'undefined') {
                 // we can replace calls to J$ functions with a SymbolicReference iff they have an IID as their first
                 // argument.  'instrumentCode', 'getConcrete', and 'I' do not take an IID.
                 // TODO are we missing other cases?
-                if (callee.object.name === 'J$' && callee.property.name !== "instrumentCode" &&
+                if (callee.object.name === 'J$$' && callee.property.name !== "instrumentCode" &&
                     callee.property.name !== "getConcrete" &&
                     callee.property.name !== "I" && node.arguments[0]) {
                     return true;
@@ -207,7 +207,7 @@ if (typeof J$ === 'undefined') {
         var visitorPost = {
             'CallExpression':function (node) {
                 try {
-                    if (node.callee.object && node.callee.object.name === 'J$' && (node.callee.property.name === 'Se' || node.callee.property.name === 'Fe')) {
+                    if (node.callee.object && node.callee.object.name === 'J$$' && (node.callee.property.name === 'Se' || node.callee.property.name === 'Fe')) {
                         // associate IID with the AST of the containing function / script
                         setSerializedAST(node.arguments[0].value, parentFunOrScript);
                         return node;
@@ -341,7 +341,7 @@ if (typeof J$ === 'undefined') {
     astUtil.CONTEXT = CONTEXT;
     astUtil.transformAst = transformAst;
     astUtil.computeTopLevelExpressions = computeTopLevelExpressions;
-})(J$);
+})(J$$);
 
-// exports J$.astUtil
-// depends on J$.Constants
+// exports J$$.astUtil
+// depends on J$$.Constants

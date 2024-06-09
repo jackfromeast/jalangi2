@@ -11,13 +11,13 @@
     function MyAnalysis() {
 
         this.literal = function (iid, val, hasGetterSetter) {
-            var id = J$.getGlobalIID(iid);
+            var id = J$$.getGlobalIID(iid);
             if (typeof val === 'object')
                 allocCount[id] = (allocCount[id] | 0) + 1;
         };
 
         this.invokeFunPre = function (iid, f, base, args, isConstructor, isMethod, functionIid, functionSid) {
-            var id = J$.getGlobalIID(iid);
+            var id = J$$.getGlobalIID(iid);
             if (isConstructor)
                 allocCount[id] = (allocCount[id] | 0) + 1;
         };
@@ -30,7 +30,7 @@
     function print(map) {
         for (var id in map)
             if (map.hasOwnProperty(id)) {
-                sandbox.log("Object allocated at " + J$.iidToLocation(id)+" = "+map[id]);
+                sandbox.log("Object allocated at " + J$$.iidToLocation(id)+" = "+map[id]);
 
             }
     }

@@ -22,8 +22,8 @@
 
 // wrap in anonymous function to create local namespace when in browser
 // create / reset J$ global variable to hold analysis runtime
-if (typeof J$ === 'undefined') {
-    J$ = {};
+if (typeof J$$ === 'undefined') {
+    J$$  = {};
 }
 
 (function (sandbox) {
@@ -807,5 +807,5 @@ if (typeof J$ === 'undefined') {
 
     sandbox.EVAL_ORG = EVAL_ORG;
     sandbox.log = log;
-})(J$);
+})(J$$);
 

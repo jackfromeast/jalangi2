@@ -11,12 +11,12 @@
 
         this.binary = function (iid, op, left, right, result, isOpAssign, isSwitchCaseComparison, isComputed) {
             if (op === '+' && typeof result === 'string' && (left === undefined || right === undefined))
-                logs.push(J$.getGlobalIID(iid));
+                logs.push(J$$.getGlobalIID(iid));
         };
 
         this.endExecution = function () {
             for (var i = 0; i < logs.length; i++)
-                sandbox.log("Concatenated undefined with string at  " + J$.iidToLocation(logs[i]));
+                sandbox.log("Concatenated undefined with string at  " + J$$.iidToLocation(logs[i]));
         };
 
     }

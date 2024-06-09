@@ -30,8 +30,8 @@ var parser = new argparse.ArgumentParser({
 });
 parser.addArgument(['--analysis'], {help: "absolute path to analysis file to run", action: 'append'});
 parser.addArgument(['--initParam'], { help: "initialization parameter for analysis, specified as key:value", action:'append'});
-parser.addArgument(['--inlineIID'], {help: "Inline IID to (beginLineNo, beginColNo, endLineNo, endColNo) in J$.iids in the instrumented file", action: 'storeTrue'});
-parser.addArgument(['--inlineSource'], {help: "Inline original source as string in J$.iids.code in the instrumented file", action: 'storeTrue'});
+parser.addArgument(['--inlineIID'], {help: "Inline IID to (beginLineNo, beginColNo, endLineNo, endColNo) in J$$.iids in the instrumented file", action: 'storeTrue'});
+parser.addArgument(['--inlineSource'], {help: "Inline original source as string in J$$.iids.code in the instrumented file", action: 'storeTrue'});
 parser.addArgument(['--astHandlerModule'], {help: "Path to a node module that exports a function to be used for additional AST handling after instrumentation"});
 parser.addArgument(['script_and_args'], {
     help: "script to record and CLI arguments for that script",
@@ -84,7 +84,7 @@ if (args.initParam) {
         initParam[split[0]] = split[1];
     });
 }
-J$.initParams = initParam || {};
+J$$.initParams = initParam || {};
 if (args.analysis) {
     args.analysis.forEach(function (src) {
         require(path.resolve(src));
@@ -94,7 +94,7 @@ if (args.analysis) {
 Module._extensions['.js'] = function (module, filename) {
     var code = fs.readFileSync(filename, 'utf8');
     var instFilename = makeInstCodeFileName(filename);
-    var instCodeAndData = J$.instrumentCode(
+    var instCodeAndData = J$$.instrumentCode(
         {
             code: code,
             isEval: false,
@@ -103,7 +103,7 @@ Module._extensions['.js'] = function (module, filename) {
             inlineSourceMap: !!args.inlineIID,
             inlineSource: !!args.inlineSource
         });
-    instUtil.applyASTHandler(instCodeAndData, astHandler, J$);
+    instUtil.applyASTHandler(instCodeAndData, astHandler, J$$);
     fs.writeFileSync(makeSMapFileName(instFilename), instCodeAndData.sourceMapString, "utf8");
     fs.writeFileSync(instFilename, instCodeAndData.code, "utf8");
     module._compile(instCodeAndData.code, filename);
@@ -117,12 +117,12 @@ function startProgram() {
     process.argv = newArgs;
     // this assumes that the endExecution() callback of the analysis
     // does not make any asynchronous calls
-    process.on('exit', function () { J$.endExecution(); });
+    process.on('exit', function () { J$$.endExecution(); });
     Module.Module.runMain(script, null, true);
 }
 
-if (J$.analysis && J$.analysis.onReady) {
-    J$.analysis.onReady(startProgram);
+if (J$$.analysis && J$$.analysis.onReady) {
+    J$$.analysis.onReady(startProgram);
 } else {
     startProgram();
 }

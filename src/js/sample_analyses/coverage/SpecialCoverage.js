@@ -35,13 +35,13 @@
     function MyAnalysis() {
 
         function getBranchInfo() {
-            var branchInfo = branches[J$.sid - 1];
+            var branchInfo = branches[J$$.sid - 1];
             if (!branchInfo) {
-                var iids = J$.smap[J$.sid];
+                var iids = J$$.smap[J$$.sid];
                 var fileName = iids.originalCodeFileName;
                 branchInfo = {};
-                branches[J$.sid - 1] = branchInfo;
-                branchSidToFileName[J$.sid - 1] = fileName;
+                branches[J$$.sid - 1] = branchInfo;
+                branchSidToFileName[J$$.sid - 1] = fileName;
             }
             return branchInfo;
         }

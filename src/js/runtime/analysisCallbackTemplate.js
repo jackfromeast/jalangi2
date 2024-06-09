@@ -56,9 +56,9 @@
      *
      * <p>
      *     An analysis can access the source map, which maps instruction identifiers to source locations,
-     *     using the global object stored in <code>J$.smap</code>.  Jalangi 2
+     *     using the global object stored in <code>J$$.smap</code>.  Jalangi 2
      *     assigns a unique id, called <code>sid</code>, to each JavaScript
-     *     script loaded at runtime.  <code>J$.smap</code> maps each <code>sid</code> to an object, say
+     *     script loaded at runtime.  <code>J$$.smap</code> maps each <code>sid</code> to an object, say
      *     <code>iids</code>, containing source map information for the script whose id is <code>sid</code>.
      *     <code>iids</code> has the following properties: <code>"originalCodeFileName"</code> (stores the path of the original
      *     script file), <code>"instrumentedCodeFileName"</code> (stores the path of the instrumented script file),
@@ -80,10 +80,10 @@
      * <p>
      *     In each callback described below, <code>iid</code> denotes the unique static instruction id of the callback in the script.
      *     Two callback functions inserted in two different scripts may have the same iid.  In a callback function, one can access
-     *     the current script id using <code>J$.sid</code>.  One can call <code>J$.getGlobalIID(iid)</code> to get a string, called
+     *     the current script id using <code>J$$.sid</code>.  One can call <code>J$$.getGlobalIID(iid)</code> to get a string, called
      *     <code>giid</code>, that statically identifies the
-     *     callback throughout the program.  <code>J$.getGlobalIID(iid)</code> returns the string <code>J$.sid+":"+iid</code>.
-     *     <code>J$.iidToLocation(giid)</code> returns a string
+     *     callback throughout the program.  <code>J$$.getGlobalIID(iid)</code> returns the string <code>J$$.sid+":"+iid</code>.
+     *     <code>J$$.iidToLocation(giid)</code> returns a string
      *     containing the original script file path, begin and end line numbers and column numbers of the code snippet
      *     for which the callback with <code>giid</code> was inserted.
      *
@@ -606,7 +606,7 @@
         };
 
         /**
-         * This callback is called only when instrumented with J$.Config.ENABLE_SAMPLING = true
+         * This callback is called only when instrumented with J$$.Config.ENABLE_SAMPLING = true
          * This callback is called before the body of a function, method, or constructor is executed
          * if returns true, instrumented function body is executed, else uninstrumented function body is executed
          * @param {number} iid - Static unique instruction identifier of this callback

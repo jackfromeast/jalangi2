@@ -13,7 +13,7 @@
         filter: alpha(opacity=80);">
     <button type="button" style="font-style:normal; font-size:18px; background-color:lightblue;"
             href="javascript:void(0)"
-            onclick="J$.Results.showHideResults()">
+            onclick="J$$.Results.showHideResults()">
         Jalangi
     </button>
 </div>
@@ -24,8 +24,8 @@
 
 <script type="text/javascript">
     (function() {
-        if (typeof J$ === 'undefined') J$ = {};
-        J$.Results = {};
+        if (typeof J$$ === 'undefined') J$$ = {};
+        J$$.Results = {};
         var iframe = document.getElementById('jalangi_results_frame');
         //[_[
         (function() {
@@ -36,11 +36,11 @@
         iframe.contentWindow.document.open();
         iframe.contentWindow.document.write(frameHtml);
         iframe.contentWindow.document.close();
-        J$.Results.showHideResults = function () {
+        J$$.Results.showHideResults = function () {
             if (iframe.style.display !== 'block') {
                 iframe.style.display = 'block';
-                J$.Results.execute(function(div, jquery, editor){div.empty();});
-                if (typeof J$.endExecution === 'function') J$.endExecution();
+                J$$.Results.execute(function(div, jquery, editor){div.empty();});
+                if (typeof J$$.endExecution === 'function') J$$.endExecution();
             } else {
                 iframe.style.display = 'none';
             }
