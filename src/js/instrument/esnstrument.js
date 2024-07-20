@@ -36,13 +36,20 @@ if (typeof J$$ === 'undefined') {
         const babel = require('@babel/core');
         if (typeof(babel) !== 'undefined' && !process.env['NO_ES7']) {
             var res = babel.transform(code, {
-            retainLines: true,
+                retainLines: true,
                 sourceType: 'script',
-                presets: ['/home/jackfromeast/Desktop/TheHulk/jalangi2/node_modules/@babel/preset-env']
+                presets: [
+                    [
+                      '/home/jackfromeast/Desktop/TheHulk/libs/jalangi2/node_modules/@babel/preset-env',
+                      {
+                        modules: false
+                      }
+                    ]
+                  ]
             }).code; 
         
             if (res && res.indexOf('use strict') != -1) {
-            res = res.replace(/.use strict.;\n?/, '');
+                res = res.replace(/.use strict.;\n?/, '');
             }
         
             return res;
