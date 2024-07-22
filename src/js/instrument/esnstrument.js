@@ -32,7 +32,7 @@ if (typeof J$$ === 'undefined') {
         return;
     }
 
-    function es6Transform(code) {
+    function es5PreTransform(code) {
         const babel = require('@babel/core');
         if (typeof(babel) !== 'undefined' && !process.env['NO_ES7']) {
             var res = babel.transform(code, {
@@ -1886,7 +1886,7 @@ if (typeof J$$ === 'undefined') {
 //         StatCollector.resumeTimer("parse");
 //        console.time("parse")
 //        var newAst = esprima.parse(code, {loc:true, range:true});
-        var newAst = acorn.parse(es6Transform(code), {locations: true, ecmaVersion: 6 });
+        var newAst = acorn.parse(code, {locations: true, ecmaVersion: 6 });
 //        console.timeEnd("parse")
 //        StatCollector.suspendTimer("parse");
 //        StatCollector.resumeTimer("transform");
@@ -1963,10 +1963,11 @@ if (typeof J$$ === 'undefined') {
                 code = removeShebang(code);
                 iidSourceInfo = {};
                 var newAst;
+                var code_es5 = es5PreTransform(code);
                 if (Config.ENABLE_SAMPLING) {
-                    newAst = transformString(code, [visitorCloneBodyPre, visitorRRPost, visitorOps, visitorMergeBodyPre], [undefined, visitorRRPre, undefined, undefined]);
+                    newAst = transformString(code_es5, [visitorCloneBodyPre, visitorRRPost, visitorOps, visitorMergeBodyPre], [undefined, visitorRRPre, undefined, undefined]);
                 } else {
-                    newAst = transformString(code, [visitorRRPost, visitorOps], [visitorRRPre, undefined]);
+                    newAst = transformString(code_es5, [visitorRRPost, visitorOps], [visitorRRPre, undefined]);
                 }
                 // post-process AST to hoist function declarations (required for Firefox)
                 var hoistedFcts = [];
@@ -2010,7 +2011,7 @@ if (typeof J$$ === 'undefined') {
             }
         }
 
-        return {code: instCode, instAST: newAst, sourceMapObject: iidSourceInfo, sourceMapString: prepend};
+        return {code: instCode, code_es5: code_es5, instAST: newAst, sourceMapObject: iidSourceInfo, sourceMapString: prepend};
 
     }
 

@@ -73,6 +73,9 @@ if (typeof J$$ === 'undefined') {
         return name.replace(new RegExp(".js$"), "_orig_.js");
     }
 
+    function makeTranspiledFileName(name) {
+        return name.replace(/.js$/, "_es5_transpiled_.js");
+    }
 
 
     function rewriteInlineScript(astHandler) {
@@ -201,6 +204,7 @@ if (typeof J$$ === 'undefined') {
             instUtil.applyASTHandler(instCodeAndData, astHandler, sandbox);
             fs.writeFileSync(makeSMapFileName(instFileName), instCodeAndData.sourceMapString, "utf8");
             fs.writeFileSync(instFileName, instCodeAndData.code, "utf8");
+            fs.writeFileSync(makeTranspiledFileName(fileName), instCodeAndData.code_es5, "utf8");
         } else {
             // HTML will never be instrumented online, so it is safe to use require here
             var parse5 = require('parse5');
