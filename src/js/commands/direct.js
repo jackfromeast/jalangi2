@@ -46,6 +46,7 @@ function runAnalysis(initParam) {
     var path = require('path');
     acorn = require("acorn");
     esotope = require("esotope");
+    astring = require("astring");
     require('../headers').headerSources.forEach(function(header){
         require("./../../../"+header);
     });
