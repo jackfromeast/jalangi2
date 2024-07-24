@@ -1,0 +1,16 @@
+63a64,68
+>         // path.replaceWith(_core.types.callExpression(node.tag, [_core.template.expression.ast`
+>         //       ${_core.types.cloneNode(tmp)} || (
+>         //         ${tmp} = ${this.addHelper(helperName)}(${helperArgs})
+>         //       )
+>         //     `, ...quasi.expressions]));
+65,68c70,73
+<               ${_core.types.cloneNode(tmp)} || (
+<                 ${tmp} = ${this.addHelper(helperName)}(${helperArgs})
+<               )
+<             `, ...quasi.expressions]));
+---
+>           (
+>             ${tmp} = ${this.addHelper(helperName)}(${helperArgs})
+>           )
+>         `, ...quasi.expressions]));
