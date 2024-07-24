@@ -25,8 +25,9 @@ var path = require('path');
 var urlParser = require('url');
 
 
-var headerSources = ["node_modules/esotope/esotope.js",
-    "node_modules/acorn/dist/acorn.js"];
+var headerSources = ["node_modules/esotope/esotope.js", 
+                    "node_modules/acorn/dist/acorn.js",
+                    "node_modules/astring/dist/astring.js",];
 
 var headersSet = false;
 

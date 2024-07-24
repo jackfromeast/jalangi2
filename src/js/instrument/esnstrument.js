@@ -304,7 +304,7 @@ if (typeof J$$ === 'undefined') {
             }
         };
 //        StatCollector.resumeTimer("internalParse");
-        var ast = acorn.parse(code);
+        var ast = acorn.parse(code, {sourceType: "module", allowImportExportEverywhere: true, ecmaVersion: 11, locations: true});
 //        StatCollector.suspendTimer("internalParse");
 //        StatCollector.resumeTimer("replace");
         var newAst = astUtil.transformAst(ast, visitorReplaceInExpr, undefined, undefined, true);
@@ -1023,16 +1023,18 @@ if (typeof J$$ === 'undefined') {
     function syncDefuns(node, scope, isScript) {
         var ret = [], ident;
         if (!isScript) {
-            if (!Config.INSTR_TRY_CATCH_ARGUMENTS || Config.INSTR_TRY_CATCH_ARGUMENTS(node)) {
-                if (!Config.INSTR_INIT || Config.INSTR_INIT(node)) {
-                    ident = createIdentifierAst("arguments");
-                    ret = ret.concat(createCallInitAsStatement(node,
-                        createLiteralAst("arguments"),
-                        ident,
-                        true,
-                        ident, false, true));
-                }
-            }
+            // Comment out for "use strict" mode compatibility
+            // Refer to: https://github.com/Pjsrcool/jalangi2/commit/664742bfb1316dc6071f533a2649b1ed86297d5c#diff-f5d3c8abe00e319349b773d51fe32b02da12e3c3d895b6f1df00f2269fd91440
+            // if (!Config.INSTR_TRY_CATCH_ARGUMENTS || Config.INSTR_TRY_CATCH_ARGUMENTS(node)) {
+            //     if (!Config.INSTR_INIT || Config.INSTR_INIT(node)) {
+            //         ident = createIdentifierAst("arguments");
+            //         ret = ret.concat(createCallInitAsStatement(node,
+            //             createLiteralAst("arguments"),
+            //             ident,
+            //             true,
+            //             ident, false, true));
+            //     }
+            // }
         }
         if (scope) {
                 for (var name in scope.vars) {
@@ -1886,7 +1888,7 @@ if (typeof J$$ === 'undefined') {
 //         StatCollector.resumeTimer("parse");
 //        console.time("parse")
 //        var newAst = esprima.parse(code, {loc:true, range:true});
-        var newAst = acorn.parse(code, {locations: true, ecmaVersion: 6 });
+        var newAst = acorn.parse(code, {locations: true, ecmaVersion: 11, sourceType: 'module', allowImportExportEverywhere: true});
 //        console.timeEnd("parse")
 //        StatCollector.suspendTimer("parse");
 //        StatCollector.resumeTimer("transform");
@@ -1972,7 +1974,8 @@ if (typeof J$$ === 'undefined') {
                 // post-process AST to hoist function declarations (required for Firefox)
                 var hoistedFcts = [];
                 newAst = hoistFunctionDeclaration(newAst, hoistedFcts);
-                var newCode = esotope.generate(newAst, {comment: true ,parse: acorn.parse});
+                // var newCode = esotope.generate(newAst, {comment: true ,parse: acorn.parse});
+                var newCode = astring.generate(newAst);
                 code = newCode + "\n" + noInstr + "\n";
             } catch(ex) {
                 console.log("Failed to instrument", code);
