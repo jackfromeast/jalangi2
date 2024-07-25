@@ -303,13 +303,9 @@ if (typeof J$$ === 'undefined') {
                 return node;
             }
         };
-//        StatCollector.resumeTimer("internalParse");
+
         var ast = acorn.parse(code, {sourceType: "module", allowImportExportEverywhere: true, ecmaVersion: 11, locations: true});
-//        StatCollector.suspendTimer("internalParse");
-//        StatCollector.resumeTimer("replace");
         var newAst = astUtil.transformAst(ast, visitorReplaceInExpr, undefined, undefined, true);
-        //console.log(newAst);
-//        StatCollector.suspendTimer("replace");
         return newAst.body;
     }
 
@@ -852,18 +848,6 @@ if (typeof J$$ === 'undefined') {
 
     }
 
-//    function createCallWriteAsStatement(node, name, val) {
-//        printIidToLoc(node);
-//        var ret = replaceInStatement(
-//            logWriteFunName + "(" + RP + "1, " + RP + "2, " + RP + "3)",
-//            getIid(),
-//            name,
-//            val
-//        );
-//        transferLoc(ret[0].expression, node);
-//        return ret;
-//    }
-
     function createExpressionStatement(lhs, node) {
         var ret;
         ret = replaceInStatement(
@@ -899,8 +883,13 @@ if (typeof J$$ === 'undefined') {
 
     function createCallAsFunEnterStatement(node) {
         printIidToLoc(node);
+        // Replace arguments.callee with undefined for "use strict" mode compatibility
+        // Since we don't use Fe callback, it will don't be used at anywhere
+        // We don't remove this function directly is because Jalangi2 uses 
+        // Refer to: https://github.com/Pjsrcool/jalangi2/commit/
         var ret = replaceInStatement(
-            logFunctionEnterFunName + "(" + RP + "1,arguments.callee, this, arguments)",
+            logFunctionEnterFunName + "(" + RP + "1, undefined, this, arguments)",
+            // logFunctionEnterFunName + "(" + RP + "1,arguments.callee, this, arguments)",
             getIid()
         );
         transferLoc(ret[0].expression, node);
@@ -1022,7 +1011,7 @@ if (typeof J$$ === 'undefined') {
 
     function syncDefuns(node, scope, isScript) {
         var ret = [], ident;
-        if (!isScript) {
+        // if (!isScript) {
             // Comment out for "use strict" mode compatibility
             // Refer to: https://github.com/Pjsrcool/jalangi2/commit/664742bfb1316dc6071f533a2649b1ed86297d5c#diff-f5d3c8abe00e319349b773d51fe32b02da12e3c3d895b6f1df00f2269fd91440
             // if (!Config.INSTR_TRY_CATCH_ARGUMENTS || Config.INSTR_TRY_CATCH_ARGUMENTS(node)) {
@@ -1035,7 +1024,7 @@ if (typeof J$$ === 'undefined') {
             //             ident, false, true));
             //     }
             // }
-        }
+        // }
         if (scope) {
                 for (var name in scope.vars) {
                     if (HOP(scope.vars, name)) {
@@ -1095,11 +1084,9 @@ if (typeof J$$ === 'undefined') {
 
 
     function instrumentFunctionEntryExit(node, ast) {
-        var body;
+        var body = [];
         if (!Config.INSTR_TRY_CATCH_ARGUMENTS || Config.INSTR_TRY_CATCH_ARGUMENTS(node)) {
             body = createCallAsFunEnterStatement(node);
-        } else {
-            body = [];
         }
         body = body.concat(syncDefuns(node, scope, false)).concat(ast);
         return body;
