@@ -68,7 +68,8 @@ function makeSMapFileName(name) {
 }
 
 acorn = require("acorn");
-esotope = require("esotope");
+// esotope = require("esotope");
+astring = require("astring");
 require('../headers').headerSources.forEach(function (header) {
     require("./../../../" + header);
 });

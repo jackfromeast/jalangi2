@@ -27,7 +27,7 @@ if (typeof J$$ === 'undefined') {
 
 (function (sandbox) {
     acorn = require("acorn");
-    esotope = require("esotope");
+    // esotope = require("esotope");
     astring = require("astring");
     require('../headers').headerSources.forEach(function (header) {
         require("./../../../" + header);

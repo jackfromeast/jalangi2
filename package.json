@@ -3,9 +3,9 @@
   "version": "0.2.6",
   "description": "dynamic analysis framework for JavaScript",
   "dependencies": {
-    "@babel/preset-env": "^7.24.5",
     "acorn": "7.2.0",
     "argparse": "0.1.6",
+    "astring": "^1.8.6",
     "codemirror": "5.1.0",
     "cover": "0.2.9",
     "datatables": "1.10.6",
@@ -32,6 +32,7 @@
     "url": "https://github.com/Samsung/jalangi2.git"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.24.8",
     "mocha": "7.1.2",
     "shelljs": "^0.6.0"
   },
