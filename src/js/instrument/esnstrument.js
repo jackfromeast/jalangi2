@@ -20,7 +20,7 @@
 // JALANGI DO NOT INSTRUMENT
 
 /*jslint node: true browser: true */
-/*global astUtil acorn esotope J$ */
+/*global astUtil acorn esotope J$$ */
 
 //var StatCollector = require('../utils/StatCollector');
 if (typeof J$$ === 'undefined') {
@@ -41,9 +41,7 @@ if (typeof J$$ === 'undefined') {
                 presets: [
                     [
                       '/home/jackfromeast/Desktop/TheHulk/libs/jalangi2/node_modules/@babel/preset-env',
-                      {
-                        modules: false
-                      }
+                      { modules: false }
                     ]
                   ]
             }).code; 
@@ -304,7 +302,8 @@ if (typeof J$$ === 'undefined') {
             }
         };
 
-        var ast = acorn.parse(code, {sourceType: "module", allowImportExportEverywhere: true, ecmaVersion: 11, locations: true});
+        // var ast = acorn.parse(code, {sourceType: "module", allowImportExportEverywhere: true, ecmaVersion: 11, locations: true});
+        var ast = acorn.parse(code, {locations: true, ecmaVersion: 11, sourceType: 'script'});
         var newAst = astUtil.transformAst(ast, visitorReplaceInExpr, undefined, undefined, true);
         return newAst.body;
     }
@@ -770,6 +769,29 @@ if (typeof J$$ === 'undefined') {
     function wrapLogicalOr(node, left, right) {
         if (!Config.INSTR_CONDITIONAL || Config.INSTR_CONDITIONAL("||", node)) {
             printCondIidToLoc(node);
+            /** 
+             * This function convert the logical `or` to contional expression ?:
+             * E.g. let x = a || b => let x = J$.C(a) ? J$._() : b 
+             * J$._() retruns the last computed value which is J$.C(a) or b
+             * 
+             * The problem is that if a is an symbolic value, in J$.C(a) convert a to its concrete value
+             * (otherwise, the condition will always return true due to our symbolic object wrapper).
+             * Then J$._() will be the concrete value of a, and we will lose the symbolic variable.
+             * 
+             * To solve this problem, my first solution is to modify the instrumentation: let x = a || b => let x = J$.C(a) ? a : b
+             * But this would cause a problem when instrumenting chained logical or: 
+             * let x = a() || b() || c() =>
+             * J$.C((J$.C(a()) ? a():b())) ? (J$.C(a()) ? a():b()) : c()
+             * 
+             * in stead of generating something like:
+             * let x = J$.C(a()) ? a() : J$.C(b()) ? b() : c() 
+             * 
+             * Currently, I use the second solution in the following code:
+             * let J$._() = a instead of let J$._() = J$.C(a)
+             * 
+             * modified in runtime/analysis.js:C function and analyser/src/symbolic-execution.js:conditional function
+             *
+             */
             var ret = replaceInExpr(
                 logConditionalFunName + "(" + RP + "1, " + RP + "2)?" + logLastFunName + "():" + RP + "3",
                 getCondIid(),
@@ -1872,22 +1894,20 @@ if (typeof J$$ === 'undefined') {
     // END of Liang Gong's AST post-processor
 
     function transformString(code, visitorsPost, visitorsPre) {
-//         StatCollector.resumeTimer("parse");
-//        console.time("parse")
-//        var newAst = esprima.parse(code, {loc:true, range:true});
-        var newAst = acorn.parse(code, {locations: true, ecmaVersion: 11, sourceType: 'module', allowImportExportEverywhere: true});
-//        console.timeEnd("parse")
-//        StatCollector.suspendTimer("parse");
-//        StatCollector.resumeTimer("transform");
-//        console.time("transform")
+        var newAst;
+        // try{
+        newAst = acorn.parse(code, {locations: true, ecmaVersion: 11, sourceType: 'script'});
+        // }
+        // catch(e){
+            // newAst = acorn.parse(code, {locations: true, ecmaVersion: 11, sourceType: 'module', allowImportExportEverywhere: true});
+        //     // console.log("Error parsing code: " + code);
+        //     throw e;
+        // }
         addScopes(newAst);
         var len = visitorsPost.length;
         for (var i = 0; i < len; i++) {
             newAst = astUtil.transformAst(newAst, visitorsPost[i], visitorsPre[i], astUtil.CONTEXT.RHS);
         }
-//        console.timeEnd("transform")
-//        StatCollector.suspendTimer("transform");
-//        console.log(JSON.stringify(newAst,null,"  "));
         return newAst;
     }
 
