@@ -126,6 +126,8 @@ if (typeof J$$ === 'undefined') {
     var logLastFunName = JALANGI_VAR + "._";
     var logX1FunName = JALANGI_VAR + ".X1";
 
+    var logImportFunName = JALANGI_VAR + ".Imp"
+
     var instrumentCodeFunName = JALANGI_VAR + ".instrumentEvalCode";
 
 
@@ -169,7 +171,8 @@ if (typeof J$$ === 'undefined') {
         VariableDeclaration: 'VariableDeclaration',
         VariableDeclarator: 'VariableDeclarator',
         WhileStatement: 'WhileStatement',
-        WithStatement: 'WithStatement'
+        WithStatement: 'WithStatement',
+        ImportExpression: 'ImportExpression',
     };
 
 
@@ -1155,7 +1158,6 @@ if (typeof J$$ === 'undefined') {
             return ret;
         }
     }
-
     function instrumentStore(node, isDeclaration) {
         var ret;
         if (node.left.type === 'Identifier') {
@@ -1582,10 +1584,48 @@ if (typeof J$$ === 'undefined') {
             node.argument = wrapWithX1(node, ret);
             return node;
         },
-
         "ExpressionStatement": function (node) {
             node.expression = wrapWithX1(node, node.expression);
             return node;
+        },
+        "ImportExpression": function (node) {
+            /**
+             * Currently, we don't support import key word  in general, like import 'module' or import * as module from 'module'
+             * But, we can support import('module') as a function call
+             * Now, we treat import('module') as a function call
+             * 
+             * However, I found if I call the import in the Jalani2 runtime instead of the original script
+             * The relative path could be messed up
+             * So, we handle the import in this way:
+             * 
+             * Add another CallExpression node before the ImportExpression node with its arguments
+             * This helps us to hook the import function call while keep import call in the original script
+             * 
+             * We change the ImportExpression node to CallExpression node
+             * node.callee = CallExpression node (JALANGI_VAR + ".imp")
+             * node.arguments = [node.source node]
+             */
+            const importHookCallExpression = {
+                type: "CallExpression",
+                callee: {
+                    type: "Identifier",
+                    name: logImportFunName,
+                },
+                arguments: [
+                    node.source,
+                ],
+            };
+            // var callee = instrumentImportCall(node, false);
+            // node.type = "CallExpression";
+            // node.callee = callee;
+            // node.arguments = [node.source];
+            return {
+                type: "SequenceExpression",
+                expressions: [
+                    importHookCallExpression,
+                    node,
+                ],
+            };
         }
     };
 

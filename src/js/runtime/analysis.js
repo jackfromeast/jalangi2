@@ -243,6 +243,11 @@ if (typeof J$$ === 'undefined') {
         };
     }
 
+    // Import function call (e.g., import('module'))
+    function Imp(url) {
+        return url;
+    }
+    
     // Ignore argument (identity).
     function I(val) {
         return val;
