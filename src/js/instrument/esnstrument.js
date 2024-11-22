@@ -1061,7 +1061,7 @@ if (typeof J$$ === 'undefined') {
                                     createLiteralAst(name),
                                     wrapLiteral(ident, ident, N_LOG_FUNCTION_LIT),
                                     false,
-                                    ident, false, true));
+                                    ident, false, false)); // Change this to false for "use strict" mode compatibility 
                             } else {
                                 ident = createIdentifierAst(name);
                                 ident.loc = scope.funLocs[name];
@@ -1077,7 +1077,7 @@ if (typeof J$$ === 'undefined') {
                                 ret = ret.concat(createCallInitAsStatement(node,
                                     createLiteralAst(name), ident,
                                     false,
-                                    ident, false, true));
+                                    ident, false, false));
                             }
                         }
                         if (scope.vars[name] === "arg") {
