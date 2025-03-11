@@ -40,7 +40,7 @@ if (typeof J$$ === 'undefined') {
                 sourceType: 'script',
                 presets: [
                     [
-                      '/home/jackfromeast/Desktop/TheHulk/libs/jalangi2/node_modules/@babel/preset-env',
+                      require.resolve('../../../node_modules/@babel/preset-env'),
                       { modules: false }
                     ]
                   ]
