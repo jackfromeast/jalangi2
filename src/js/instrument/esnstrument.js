@@ -1010,6 +1010,10 @@ if (typeof J$$ === 'undefined') {
     }
 
     function wrapFunBodyWithTryCatch(node, body) {
+        if (!Config.instrumentTryCatchForFunc) {
+            return body;
+        }
+        
         if (!Config.INSTR_TRY_CATCH_ARGUMENTS || Config.INSTR_TRY_CATCH_ARGUMENTS(node)) {
             printIidToLoc(node);
             var iid1 = getIid();

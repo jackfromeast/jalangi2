@@ -32,6 +32,7 @@ if (typeof J$$ === 'undefined') {
 // make MAX_BUF_SIZE slightly less than 2^16, to allow over low-level overheads
     Config.MAX_BUF_SIZE = 64000;
     Config.LOG_ALL_READS_AND_BRANCHES = false;
+    Config.instrumentTryCatchForFunc = false;
 
     //**********************************************************
     //  Functions for selective instrumentation of operations
